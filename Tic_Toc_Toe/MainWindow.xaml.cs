@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Tic_Toc_Toe
 {
@@ -63,8 +64,15 @@ namespace Tic_Toc_Toe
             //Iterate every button on the grid
             container.Children.Cast<Button>().ToList().ForEach(button =>
             {
+                // Change  background,foreground to the default colors
                 button.Content = string.Empty;
+                button.Background = Brushes.White;
+                button.Foreground = Brushes.Blue;
             });
+
+
+            //make sure game hasn't end
+            mGameEnded = false;
            
 
         }
