@@ -94,7 +94,54 @@ namespace Tic_Toc_Toe
                 NewGame();
                 return;
             }
+            // cast the sender to btn
+            var button = (Button)sender;
 
+            //find position of the btn clicked in the array
+            var column = Grid.GetColumn(button);
+            var raw = Grid.GetRow(button);
+
+            var index = column + (raw * 3);
+
+
+            //dnt alter the clicked btn
+            if (mResults[index]!=MarkType.Free)
+            {
+                return;
+            }
+
+            // set the cell value based on the player
+            mResults[index] = mplayer1Turn ? MarkType.Cross : MarkType.Nought;
+
+            //set btn text to the result
+            button.Content = mplayer1Turn ? "X" : "O";
+
+            if (!mplayer1Turn)
+            {
+                button.Foreground = Brushes.Red;
+            }
+            //toggle the players turn
+            mplayer1Turn ^= true;
+
+            CheckForWinner();
+
+        }
+
+        /// <summary>
+        /// check a winner for a 3 line straight checks
+        /// </summary>
+        private void CheckForWinner()
+        {
+            var same = (mResults[0] & mResults[1] & mResults[2]) == mResults[0];
+            //checks for horizontal
+            if (mResults[0]!=MarkType.Free && same )
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn0_0.Background = btn1_0.Background = btn2_0.Background = Brushes.Green;
+            }
         }
     }
 }
