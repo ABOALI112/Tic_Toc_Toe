@@ -26,7 +26,7 @@ namespace Tic_Toc_Toe
         /// </summary>
         private bool mplayer1Turn;
 
-        
+
         /// <summary>
         /// True if  Game Ended 
         /// </summary>
@@ -41,7 +41,7 @@ namespace Tic_Toc_Toe
         {
             InitializeComponent();
 
-            
+
             NewGame();
 
         }
@@ -76,7 +76,7 @@ namespace Tic_Toc_Toe
 
             //make sure game hasn't end
             mGameEnded = false;
-           
+
 
         }
 
@@ -105,7 +105,7 @@ namespace Tic_Toc_Toe
 
 
             //dnt alter the clicked btn
-            if (mResults[index]!=MarkType.Free)
+            if (mResults[index] != MarkType.Free)
             {
                 return;
             }
@@ -132,9 +132,14 @@ namespace Tic_Toc_Toe
         /// </summary>
         private void CheckForWinner()
         {
+            #region horizontal wins 
+
+            //
+            //-Row 0
+            //
             var same = (mResults[0] & mResults[1] & mResults[2]) == mResults[0];
             //checks for horizontal
-            if (mResults[0]!=MarkType.Free && same )
+            if (mResults[0] != MarkType.Free && same)
             {
                 //Game ends
                 mGameEnded = true;
@@ -142,6 +147,129 @@ namespace Tic_Toc_Toe
                 //hightlight winning boxes with green
                 btn0_0.Background = btn1_0.Background = btn2_0.Background = Brushes.Green;
             }
-        }
+            //
+            //-Row 1
+            //
+            var row2 = (mResults[3] & mResults[4] & mResults[5]) == mResults[3];
+            //checks for horizontal
+            if (mResults[3] != MarkType.Free && row2)
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn0_1.Background = btn1_1.Background = btn2_1.Background = Brushes.Green;
+            }
+
+            //
+            //-Row 2
+            //
+            var row3 = (mResults[6] & mResults[7] & mResults[8]) == mResults[6];
+            //checks for horizontal
+            if (mResults[6] != MarkType.Free && row3)
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn0_2.Background = btn1_2.Background = btn2_2.Background = Brushes.Green;
+            }
+
+            #endregion
+            #region vertical wins
+
+            //
+            //-Col 0
+            //
+            var col0 = (mResults[0] & mResults[3] & mResults[6]) == mResults[0];
+            //checks for horizontal
+            if (mResults[0] != MarkType.Free && col0)
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn0_0.Background = btn0_1.Background = btn0_2.Background = Brushes.Green;
+            }
+            //
+            //-Col 1
+            //
+            var col1 = (mResults[1] & mResults[4] & mResults[7]) == mResults[1];
+            //checks for horizontal
+            if (mResults[1] != MarkType.Free && col1)
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn1_0.Background = btn1_1.Background = btn1_2.Background = Brushes.Green;
+            }
+
+            //
+            //-Col 2
+            //
+            var col2 = (mResults[2] & mResults[5] & mResults[8]) == mResults[2];
+            //checks for horizontal
+            if (mResults[2] != MarkType.Free && col2)
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn2_0.Background = btn2_1.Background = btn2_2.Background = Brushes.Green;
+            }
+            #endregion
+
+            #region Diagonal wins
+
+            //
+            //-diagonal checks 
+            // top left bottom right
+            var diagonal1 = (mResults[0] & mResults[4] & mResults[8]) == mResults[0];
+            //checks for horizontal
+            if (mResults[0] != MarkType.Free && diagonal1)
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn1_0.Background = btn1_1.Background = btn2_2.Background = Brushes.Green;
+            }
+            //
+            //-diagona2 checks 
+            
+            //top right bottom left 
+            var diagonal2 = (mResults[2] & mResults[4] & mResults[6]) == mResults[2];
+            //checks for horizontal
+            if (mResults[2] != MarkType.Free && diagonal2   )
+            {
+                //Game ends
+                mGameEnded = true;
+
+                //hightlight winning boxes with green
+                btn2_0.Background = btn1_1.Background = btn0_2.Background = Brushes.Green;
+            }
+
+
+            #endregion
+
+
+            #region no winners
+            //check for no winner and full board
+            if (!mResults.Any(result => result == MarkType.Free))
+                {
+                    //game ends
+                    mGameEnded = true;
+
+                    //make all buttons orange.
+
+                    container.Children.Cast<Button>().ToList().ForEach(button =>
+                    {
+                        button.Background = Brushes.Orange;
+                    });
+                }
+            }
+        #endregion 
     }
 }
+
