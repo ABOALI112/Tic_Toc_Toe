@@ -22,7 +22,7 @@ namespace Tic_Toc_Toe
         private MarkType[] mResults;
 
         /// <summary>
-        /// Turn if player's1 turn is (X) and player's2 is (O)
+        /// Check if player's1 turn is (X) and player's2 is (O)
         /// </summary>
         private bool mplayer1Turn;
 
@@ -41,9 +41,7 @@ namespace Tic_Toc_Toe
         {
             InitializeComponent();
 
-
             NewGame();
-
         }
 
 
@@ -233,7 +231,7 @@ namespace Tic_Toc_Toe
                 mGameEnded = true;
 
                 //hightlight winning boxes with green
-                btn1_0.Background = btn1_1.Background = btn2_2.Background = Brushes.Green;
+                btn0_0.Background = btn1_1.Background = btn2_2.Background = Brushes.Green;
             }
             //
             //-diagona2 checks 
